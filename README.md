@@ -54,6 +54,24 @@
             console.log('client disconnected');
         });
 
+#### TCP服务的事件
+##### 服务器事件
+   net.createServer是一个基于事件的服务器，她是继承自EventEmitter,
+ 事实上,node.js中大部分模块都继承自EventEmitter，包括http、net等模块,它的
+ 自定义事件有
+
+  `listening`: 在调用server.listen()绑定端口或者Domain Socket后触发.
+  `conection` : 每个客户端套接字在连接服务器端时触发.
+
+##### 连接事件
+  服务器可以同时与多个客户端保持连接,对于每个连接而言是典型的可写可读的
+  stream对象.stream对象用于服务器和客户端之间的通信,既可以通过data事件从
+  一端读取数据,也可以通过write方法从一端向另一端发送数据.
+
+  `data`: 当一端调用write()发送数据时,另一端会触发data事件,事件传递的数据
+  就是write()发送的数据.
+  `end`: 当连接中任意一端发送FIN数据时,会触发此事件.
+
 
 
 
