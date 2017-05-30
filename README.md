@@ -27,3 +27,33 @@
         server.listen(8124, () => {
             console.log('app is running');
         });
+   可以通过三种方式访问建立的TCP服务器
+   1. 通过`telnet`工具作为客户端
+   2. 通过`nc` 工具作为客户端
+   3. 通过自定义客户端进行访问
+
+    通过telnet访问
+    telnet localhost 8124
+    通过nc工具访问
+    1. 修改server.listen('/tmp/scoket.sock');
+    2. nc -U /tmp/scoket.sock
+自定义客户端进行访问:
+
+        let net = require('net');
+        var client = net.connect({port: 8124}, () => {
+            console.log('client connected');
+            client.write('world');
+        });
+
+        client.on('data', (data) => {
+            console.log(data.toString());
+            //client.end();
+        });
+
+        client.on('end', ()=> {
+            console.log('client disconnected');
+        });
+
+
+
+
